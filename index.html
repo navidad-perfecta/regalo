@@ -12,8 +12,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            margin: 20px;
         }
 
         h1 {
@@ -24,15 +23,31 @@
             font-size: 24px;
             color: #09D261;
         }
+
+        iframe {
+            width: 500px;
+            height: 500px;
+        }
+
+        p {
+            font-weight: bold;
+            text-decoration: underline;
+            font-style: italic;
+        }
+
+        #precio {
+            font-size: 24px;
+            text-decoration: line-through;
+        }
     </style>
 </head>
 <body>
     <h1>Cómo hacer una Cena de Navidad de 10</h1>
 
-    <iframe width="417" height="742" src="https://www.youtube.com/embed/v0LvX_Ij2Qg" title="Regalo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <iframe width="500" height="500" src="https://www.youtube.com/embed/v0LvX_Ij2Qg" title="Regalo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
     <p>
-        🎄 ¿Quieres sorprender a tus seres queridos con la Cena de Navidad perfecta este año? 🎅 Descubre la guía definitiva "Cena de Navidad de 10" que te ayudará a crear una celebración inolvidable.
+        🎄 ¿Quieres sorprender a tus seres queridos con la <strong><u><em>Cena de Navidad</em></u></strong> perfecta este año? 🎅 Descubre la guía definitiva "Cena de Navidad de 10" que te ayudará a crear una celebración inolvidable.
     </p>
     <p>
         ✨ En este infoproducto, aprenderás:
@@ -50,40 +65,86 @@
         🎁 Además, recibirás bonificaciones exclusivas, como recetas navideñas especiales y listas de compras personalizables.
     </p>
     <p>
-        👉 ¡Haz de esta Navidad un momento especial para todos! Obtén tu copia de "Cena de Navidad de 10" hoy mismo y celebra una noche mágica llena de alegría y deliciosos sabores.
+        👉 ¡Haz de esta Navidad un momento especial para todos! Obtén tu copia de "<strong><u><em>Cena de Navidad de 10</em></u></strong>" hoy mismo y celebra una noche mágica llena de alegría y deliciosos sabores.
     </p>
     <p>
         🎅 No dejes que el estrés te impida disfrutar de la temporada navideña. ¡Haz clic en el enlace y comienza a planificar tu Cena de Navidad de 10 ahora!
     </p>
 
+    <p id="precio"><span style="text-decoration: line-through;">49,99€</span> 9,99€</p>
     <a href="https://buy.stripe.com/14kg1Kg5QcB58lqeVu" style="background-color: #09D261; padding: 10px 20px; color: white; text-decoration: none; font-size: 18px;">Comprar Guía</a>
 
-    <div id="contador"></div>
+    <p id="pedido"></p>
 
     <script>
-        function startCountdown(duration) {
-            const contadorElement = document.getElementById('contador');
-            let time = duration;
-            
-            function updateCountdown() {
-                const minutes = Math.floor(time / 60);
-                const seconds = time % 60;
+        // Función para sumar días a una fecha
+function sumarDias(fecha, dias) {
+    fecha.setDate(fecha.getDate() + dias);
+    return fecha;
+}
 
-                contadorElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                
-                if (time <= 0) {
-                    time = duration;
-                } else {
-                    time--;
-                }
-            }
+// Función para formatear una fecha en un formato específico
+function formatoFecha(fecha) {
+    var opciones = { weekday: 'long', day: 'numeric', month: 'long' };
+    return fecha.toLocaleDateString('es-ES', opciones);
+}
 
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
+// Función para formatear un número con al menos dos dígitos
+function formatoNumero(numero) {
+    return numero.toString().padStart(2, '0'); // Asegura que el número tenga al menos dos dígitos
+}
 
-        // Inicia el contador en 10 minutos (600 segundos)
-        startCountdown(600);
+// Obtiene la fecha actual
+let fecha = new Date();
+
+// Obtiene el día de la semana (0 = domingo, 1 = lunes, etc.)
+var diaSemana = fecha.getDay();
+
+// Si es viernes, establece la fecha de entrega al martes de la semana siguiente
+if (diaSemana === 5) {
+    fecha = sumarDias(fecha, 4); // Suma 4 días para llegar al martes
+} else if (diaSemana === 6) {
+    fecha = sumarDias(fecha, 3); // Suma 3 días para llegar al martes
+} else if (diaSemana === 0) {
+    fecha = sumarDias(fecha, 2); // Suma 2 días para llegar al martes
+} else {
+    fecha = sumarDias(fecha, 1); // Suma 1 día para llegar al día siguiente
+}
+
+// Obtiene la fecha de entrega y la formatea en un formato legible
+var fechaEntrega = fecha;
+var fechaSimplificada = formatoFecha(fechaEntrega);
+
+// Calcula la fecha límite para el contador 24 horas antes de la entrega
+var fechaLimite = new Date(fechaEntrega);
+fechaLimite.setHours(22, 7, 5); // Establece la hora límite a las 22:07:05
+fechaLimite.setDate(fechaLimite.getDate() - 1); // Resta 1 día
+
+// Asegura que la fecha límite esté en el futuro
+var ahora = new Date().getTime();
+while (fechaLimite.getTime() <= ahora) {
+    fechaLimite = new Date(fechaLimite.getTime() + 24 * 60 * 60 * 1000); // Suma 24 horas
+}
+
+// Función que actualiza el contador cada segundo
+var x = setInterval(function () {
+    ahora = new Date().getTime();
+    var distancia = fechaLimite - ahora;
+
+    // Calcula las horas, minutos y segundos restantes
+    var horas = formatoNumero(Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    var minutos = formatoNumero(Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60)));
+    var segundos = formatoNumero(Math.floor((distancia % (1000 * 60)) / 1000));
+
+    // Actualiza el elemento HTML con el tiempo restante
+    document.getElementById("pedido").innerHTML = "Haz tu pedido en " + horas + ":" + minutos + ":" + segundos + " y recíbelo el " + fechaSimplificada;
+
+    // Reinicia el contador si la fecha límite se ha alcanzado
+    if (distancia < 0) {
+        fechaLimite = new Date(fechaLimite.getTime() + 24 * 60 * 60 * 1000); // Suma 24 horas
+    }
+}, 1000); // Actualiza cada 1000 milisegundos (1 segundo)
+
     </script>
 </body>
 </html>
