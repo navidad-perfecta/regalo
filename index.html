@@ -36,8 +36,18 @@
         }
 
         #precio {
+            font-size: 36px;
+            background-color: #09D261;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            display: inline-block;
+        }
+
+        #oferta {
             font-size: 24px;
-            text-decoration: line-through;
+            color: #09D261;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -71,13 +81,13 @@
         🎅 No dejes que el estrés te impida disfrutar de la temporada navideña. ¡Haz clic en el enlace y comienza a planificar tu Cena de Navidad de 10 ahora!
     </p>
 
-    <p id="precio"><span style="text-decoration: line-through;">49,99€</span> 9,99€</p>
-    <a href="https://buy.stripe.com/14kg1Kg5QcB58lqeVu" style="background-color: #09D261; padding: 10px 20px; color: white; text-decoration: none; font-size: 18px;">Comprar Guía</a>
+    <span id="precio">9,99€</span>
+    <a href="https://buy.stripe.com/14kg1Kg5QcB58lqeVu" style="background-color: #09D261; padding: 10px 20px; color: white; text-decoration: none; font-size: 24px; border-radius: 10px; margin-top: 10px;">Comprar Guía</a>
 
-    <p id="pedido"></p>
+    <p id="oferta"></p>
 
     <script>
-        // Función para sumar días a una fecha
+       // Función para sumar días a una fecha
 function sumarDias(fecha, dias) {
     fecha.setDate(fecha.getDate() + dias);
     return fecha;
@@ -136,8 +146,8 @@ var x = setInterval(function () {
     var minutos = formatoNumero(Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60)));
     var segundos = formatoNumero(Math.floor((distancia % (1000 * 60)) / 1000));
 
-    // Actualiza el elemento HTML con el tiempo restante
-    document.getElementById("pedido").innerHTML = "Haz tu pedido en " + horas + ":" + minutos + ":" + segundos + " y recíbelo el " + fechaSimplificada;
+    // Actualiza el elemento HTML con el tiempo restante y la fecha de entrega
+    document.getElementById("oferta").innerHTML = "Oferta Disponible hasta: " + horas + ":" + minutos + ":" + segundos;
 
     // Reinicia el contador si la fecha límite se ha alcanzado
     if (distancia < 0) {
