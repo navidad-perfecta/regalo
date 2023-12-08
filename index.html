@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: white;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        #contador {
+            font-size: 24px;
+            color: #09D261;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cómo hacer una Cena de Navidad de 10</h1>
+
+    <iframe width="417" height="742" src="https://www.youtube.com/embed/v0LvX_Ij2Qg" title="Regalo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+    <p>
+        🎄 ¿Quieres sorprender a tus seres queridos con la Cena de Navidad perfecta este año? 🎅 Descubre la guía definitiva "Cena de Navidad de 10" que te ayudará a crear una celebración inolvidable.
+    </p>
+    <p>
+        ✨ En este infoproducto, aprenderás:
+    </p>
+    <ul>
+        <li>🍽️ Cómo planificar y preparar tu cena con anticipación.</li>
+        <li>🍷 Menús espectaculares para todos los gustos.</li>
+        <li>🎉 Consejos de decoración para crear un ambiente mágico.</li>
+        <li>🥂 Maridaje de vinos y brindis inolvidables.</li>
+        <li>👩‍🍳 Trucos de cocina para una preparación sin estrés.</li>
+        <li>🎲 Ideas para entretenimiento y actividades.</li>
+        <li>🌟 Cuidado personal y bienestar durante las festividades.</li>
+    </ul>
+    <p>
+        🎁 Además, recibirás bonificaciones exclusivas, como recetas navideñas especiales y listas de compras personalizables.
+    </p>
+    <p>
+        👉 ¡Haz de esta Navidad un momento especial para todos! Obtén tu copia de "Cena de Navidad de 10" hoy mismo y celebra una noche mágica llena de alegría y deliciosos sabores.
+    </p>
+    <p>
+        🎅 No dejes que el estrés te impida disfrutar de la temporada navideña. ¡Haz clic en el enlace y comienza a planificar tu Cena de Navidad de 10 ahora!
+    </p>
+
+    <a href="https://buy.stripe.com/14kg1Kg5QcB58lqeVu" style="background-color: #09D261; padding: 10px 20px; color: white; text-decoration: none; font-size: 18px;">Comprar Guía</a>
+
+    <div id="contador"></div>
+
+    <script>
+        function startCountdown(duration) {
+            const contadorElement = document.getElementById('contador');
+            let time = duration;
+            
+            function updateCountdown() {
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+
+                contadorElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                if (time <= 0) {
+                    time = duration;
+                } else {
+                    time--;
+                }
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // Inicia el contador en 10 minutos (600 segundos)
+        startCountdown(600);
+    </script>
+</body>
+</html>
